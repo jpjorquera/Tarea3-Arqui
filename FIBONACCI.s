@@ -1,5 +1,5 @@
 main:
-	addi $a0, $zero, 8
+	addi $a0, $zero, 46 				# Muere en el 47
 	add $s0, $zero, $zero
 	addi $s1, $zero, 1
 	beq $s0, $a0, PRIMERO
