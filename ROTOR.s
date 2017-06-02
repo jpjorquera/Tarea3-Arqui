@@ -35,9 +35,9 @@ extra:
 	add $a1, $a1, $t0
 
 end:
-	addi $v0, $zero, 1
+	li $v0, 1
 	syscall
 	add $a0, $a1, $zero
 	syscall
-	addi $v0, $zero, 10
+	li $v0, 10
 	syscall

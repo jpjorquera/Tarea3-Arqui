@@ -25,7 +25,7 @@ LOOP:
 	j EXIT
 
 EXIT:
-	addi $v0, $zero, 1
+	li $v0, 1
 	syscall
-	addi $v0, $zero, 10
+	li $v0, 10
 	syscall
