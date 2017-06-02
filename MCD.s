@@ -3,8 +3,12 @@
 num1: .word 2366
 num2: .word 273
 
+# OUTPUT
+resultado: .word 0
+
 # PRINTS
-result: .asciiz "El MCD de ambos numeros es: "
+str: .asciiz "El MCD de ambos numeros es: "
+salto: .asciiz "\n"
 
 .text
 # MAIN
@@ -29,11 +33,15 @@ mcd:
 
 end:
 	add $t0, $a0, $zero			# Auxiliar
-	la $a0, result				# Imprimir string
+	la $a0, str					# Imprimir string
 	li $v0, 4
 	syscall
 	add $a0, $t0, $zero			# Imprimir resultado
+	sw $a0, resultado			# Guardar resultado
 	li $v0, 1
+	syscall
+	la $a0, salto
+	li $v0, 4
 	syscall
 	li $v0, 10
 	syscall

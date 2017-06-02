@@ -2,8 +2,12 @@
 # INPUT
 ENESIMO: .word 46
 
+# OUTPUT
+RESULTADO: .word 0
+
 # PRINTS
-RESULTADO: .asciiz "El término enésimo de la sucesión de Fibonacci es: "
+STR: .asciiz "El término enésimo de la sucesión de Fibonacci es: "
+SALTO: .asciiz "\n"
 
 .text
 # MAIN
@@ -34,11 +38,15 @@ LOOP:
 
 EXIT:
 	add $t0, $a0, $zero			# Auxiliar
-	la $a0, RESULTADO			# Imprimir string
+	la $a0, STR					# Imprimir string
 	li $v0, 4
 	syscall
 	add $a0, $t0, $zero			# Imprimir resultado
+	sw $a0, RESULTADO			# Guardar resultado
 	li $v0, 1
+	syscall
+	la $a0, SALTO
+	li $v0, 4
 	syscall
 	li $v0, 10
 	syscall
