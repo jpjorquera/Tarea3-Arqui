@@ -1,45 +1,21 @@
 main:
-	addi $a0, $zero, 15
-	addi $a1, $zero, 10
+	addi $a0, $zero, 30000
+	addi $a1, $zero, 30000
 	slt $t0, $a0, $a1
-	beq $a0, $a1, end
-	bne $t0, $zero, mitad
+	bne $t0, $zero, mcd
 
-swap:
+swap:					# Dejar menor en a0
 	add $t0, $a0, $zero
 	add $a0, $a1, $zero
 	add $a1, $t0, $zero
 
-mitad:
-	add $s0, $a0, $zero
-	addi $t0, $zero, 2
-	div $s0, $t0
-	mfhi $t0
-	mflo $s0
-	bne $t0, $zero, impar
-	j mcd1
-
-impar:
-	addi $s0, $s0, 1
-
-mcd1:
-	div $a0, $s0
-	mfhi $t0
-	mflo $s1
-	beq $t0, $zero, mcd2
-	addi $s0, $s0, -1
-	j mcd1
-
-mcd2:
-	div $a1, $s0
-	mfhi $t0
-	mflo $s1
-	beq $t0, $zero, save
-	addi $s0, $s0, -1
-	j mcd1
-
-save:
+mcd:
+	div $a1, $a0
+	mfhi $s0
+	beq $s0, $zero, end
+	add $a1, $a0, $zero
 	add $a0, $s0, $zero
+	j mcd
 
 end:
 	addi $v0, $zero, 1
