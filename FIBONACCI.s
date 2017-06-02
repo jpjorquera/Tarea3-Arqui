@@ -1,6 +1,7 @@
 .data
 # INPUT
 ENESIMO: .word 46
+
 # PRINTS
 RESULTADO: .asciiz "El término enésimo de la sucesión de Fibonacci es: "
 
