@@ -1,6 +1,6 @@
 .data
 # INPUT
-ENESIMO: .word 46
+ENESIMO: .word 0
 
 # OUTPUT
 RESULTADO: .word 0
@@ -12,8 +12,7 @@ SALTO: .asciiz "\n"
 .text
 # MAIN
 main:
-	#lw $a0, ENESIMO	
-	add $a0, $zero, 10
+	lw $a0, ENESIMO	
 	add  $s0, $zero, 2	# Alacenar primeros valores en s0 y s1
 	addi $s1, $zero, 1
 	beq $zero $a0, PRIMERO 		# Casos bases
