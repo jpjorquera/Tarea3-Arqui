@@ -13,18 +13,20 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{askmaps}
 \usepackage{multirow}
+\usepackage{hyperref}
 \pagestyle{fancy} 
 \pagenumbering{arabic} 
 \renewcommand{\headrulewidth}{0pt} 
 \setlength{\headsep}{20pt} 
 \setlength{\headheight}{65pt} 
 \setlength{\textheight}{600pt} 
-\setlength{\columnsep}{15pt} 
+\setlength{\columnsep}{15pt}
+\setlength{\parskip}{1em}
 \newcommand{\universidad}{\small{Universidad Técnica Federico Santa María}}
 \newcommand{\campus}{\small{Campus Santiago San Joaquín}}
 
 % Definiciones de Título e Integrantes de Experiencia
-\newcommand{\titulo}{Informe Tarea 2 \\ Arquitectura y Organización de Computadores}
+\newcommand{\titulo}{Informe Tarea 3 \\ Arquitectura y Organización de Computadores}
 \newcommand{\integrantes}{\begin{tabular}{c}
 Juan Pablo Jorquera  201573533-6 \\
 Cristian Navarrete 201573549-2\\
@@ -62,133 +64,33 @@ Cristian Navarrete 201573549-2\\
 \begin{document}
 \setcounter{secnumdepth}{0}
 \maketitle
-\section{Circuito}
-Se busca realizar el circuito con las características requeridas, para ello en primer lugar realizamos el diagrama de estados correspondiente.
+\section{MCD}
+En primer lugar se dejó al principio en .data espacio para modificar inputs para probar máximos común divisores. El problema en sí se resolvió usando el \href{https://es.wikipedia.org/wiki/Algoritmo_de_Euclides#Algoritmo_de_Euclides_tradicional}{Algoritmo de Euclides}, para ello en primer lugar se identificó el menor de ambos números (almacenados en $a_0$ y $a_1$), intercambiándolos de ser necesario, de modo que el menor de ellos quede en $a_0$. 
 
-Se agregó en la etiqueta la parte de las secuencias que se va cumpliendo en cada estado (dígitos finales) para tener una mejor visualización.
-\begin{center}
-\includegraphics[width=15cm]{diag-estados.png}
-\end{center}
+Luego se creó un loop $mcd$ que va buscando el resto de la división de ambos para aplicar el Algoritmo, en caso de ser $0$ el resto significa que terminó el proceso; de no ser así, se vuelve a iterar usando como nuevos valores el menor de los antes divididos y el resto calculado.
 
-Luego se enumeró arbitrariamente cada estado, como se muestra a continuación:
-\vspace{0.2cm}
-\begin{table}[h]
-\centering
-\caption{Codificación de Estados}
-\vspace{0.2cm}
-\begin{tabular}{c|c|c|c|}
-\cline{2-4}
-                             & \multicolumn{3}{c|}{Dígito} \\ \hline
-\multicolumn{1}{|c|}{Estado} & A       & B       & C       \\ \hline
-\multicolumn{1}{|c|}{$q_0$}     & 0       & 0       & 0       \\ \hline
-\multicolumn{1}{|c|}{$q_1$}     & 0       & 0       & 1       \\ \hline
-\multicolumn{1}{|c|}{$q_2$}     & 0       & 1       & 0       \\ \hline
-\multicolumn{1}{|c|}{$q_3$}     & 0       & 1       & 1       \\ \hline
-\multicolumn{1}{|c|}{$q_4$}     & 1       & 0       & 0       \\ \hline
-\multicolumn{1}{|c|}{$q_5$}     & 1       & 0       & 1       \\ \hline
-\end{tabular}
-\end{table}
+No es necesario hacer caso base, ya que en caso de no encontrar, simplemente el resto llegará a $1$, el cual debe entregar como resto $0$.
 
-\newpage
-Luego, con la enumeración de estados, se generó  la tabla de transición y de salida con la que se va a trabajar más adelante.
-\begin{table}[h]
-\centering
-\caption{Tabla de Transición y Salida}
-\vspace{0.2cm}
-\label{tab_output}
-\begin{tabular}{|l|c|c|c|c||l|c|c|c|c|}
-\hline
-\multicolumn{4}{|c|}{Estado}   & Input & \multicolumn{4}{l|}{Siguiente Estado} & Output \\ \hline
-No.                & A & B & C & X      & No.       & D       & E      & F      &  Y      \\ \hline
-\multirow{2}{*}{0} & 0 & 0 & 0 & 0     & 0         & 0       & 0      & 0      & 0      \\ \cline{2-10} 
-                   & 0 & 0 & 0 & 1     & 1         & 0       & 0      & 1      & 0      \\ \hline
-\multirow{2}{*}{1} & 0 & 0 & 1 & 0     & 2         & 0       & 1      & 0      & 0      \\ \cline{2-10} 
-                   & 0 & 0 & 1 & 1     & 1         & 0       & 0      & 1      & 0      \\ \hline
-\multirow{2}{*}{2} & 0 & 1 & 0 & 0     & 0         & 0       & 0      & 0      & 0      \\ \cline{2-10} 
-                   & 0 & 1 & 0 & 1     & 3         & 0       & 1      & 1      & 0      \\ \hline
-\multirow{2}{*}{3} & 0 & 1 & 1 & 0     & 4         & 1       & 0      & 0      & 1      \\ \cline{2-10} 
-                   & 0 & 1 & 1 & 1     & 5         & 1       & 0      & 1      & 1      \\ \hline
-\multirow{2}{*}{4} & 1 & 0 & 0 & 0     & 0         & 0       & 0      & 0      & 0      \\ \cline{2-10} 
-                   & 1 & 0 & 0 & 1     & 3         & 0       & 1      & 1      & 0      \\ \hline
-\multirow{2}{*}{5} & 1 & 0 & 1 & 0     & 2         & 0       & 1      & 0      & 0      \\ \cline{2-10} 
-                   & 1 & 0 & 1 & 1     & 1         & 0       & 0      & 1      & 0      \\ \hline
-\multirow{2}{*}{}  & 1 & 1 & 0 & 0     &           & X       & X      & X      & X      \\ \cline{2-10} 
-                   & 1 & 1 & 0 & 1     &           & X       & X      & X      & X      \\ \hline
-\multirow{2}{*}{}  & 1 & 1 & 1 & 0     &           & X       & X      & X      & X      \\ \cline{2-10} 
-                   & 1 & 1 & 1 & 1     &           & X       & X      & X      & X      \\ \hline
-\end{tabular}
-\end{table}
+Al ser $0$ el resto, el $beq$ dentro del loop lo dirige hacia el final, donde para facilitar la visualización se imprime el valor encontrado (que también queda en $t_0$) y se almacena en la salida creada al principio. 
 
-A continuación se realizan los mapas de Karnaugh para cada salida correspondiente, usando la notación incluida en la tabla anterior.
+\section{Lucas}
 
-\vspace{0.2cm}
-\begin{center}
-\askmap{4}{$D$}{{$A$}{$B$}{$C$}{$X$}}%
-{000000110000XXXX}%
-{%
-\put(2,1){\oval(1.9,1.9)}
-}
-\askmap{4}{$E$}{{$A$}{$B$}{$C$}{$X$}}%
-{001001000110XXXX}%
-{%
-\put(2,2.5){\oval(1.9,0.8)}
-\put(3,2.5){\oval(1.9,0.7)}
-\put(4,0.5){\oval(1.9,0.8)[l]}
-\put(0,0.5){\oval(1.9,0.8)[r]}
-}
 
-\askmap{4}{$F$}{{$A$}{$B$}{$C$}{$X$}}%
-{010101010101XXXX}%
-{%
-\put(2,2){\oval(3.9,1.8)}
-}\askmap{4}{$Y$}{{$A$}{$B$}{$C$}{$X$}}%
-{000000110000XXXX}%
-{%
-\put(2,1){\oval(1.8,1.8)}
-}
-\end{center}
-\vspace{0.2cm}
+\section{Fibonacci}
+Para comenzar se creó el label enésimo para recibir el término de la serie que se quiere calcular, el cual almacenamos en $a_0$. 
 
-Obteniendo así las siguientes funciones:
-\begin{itemize}
-	\item{$D = BC$}
-	\item{$E = \overline{B}C\overline{X} + A\overline{C}X + B\overline{C}X$}
-	\item{$F = X$}
-	\item{$Y  = BC$}
-\end{itemize}
+Para continuar, definimos los dos primeros términos en $s_0$ y $s_1$, respectivamente y se realizan saltos para entregar el resultado en caso de que esos sean los términos que se busquen.
 
-Finalmente se construye el circuito con las funciones obtenidas, usando flip-flop tipo D donde corresponda.
-\vspace{0.2cm}
+Luego se utilizó $t_0$ como un contador, el cual usaremos para verificar si se llegó al término enésimo y $t_1$ como auxiliar para ir calculando la suma de los términos actuales, para poder así actualizar $s_0$ y $s_1$ a los siguientes elementos de la serie.
 
-\section{Módulo HDL}
-Para ello se realizaron tres funciones, una que hace el flip-flop d y dos para cada función lógica compuesta donde simplemente se obtienen las variables $D$, $E$ y la salida $Y$, según las funciones obtenidas anteriormente. Luego, haciendo uso de dichas funciones, se genera el circuito completo, haciendo uso las variables faltantes como lo son la entrada $X$ y el dígito $F$. Cabe destacar que al acualizar los parámetros, también se actualizan las variables que dependen de ellas, por lo que no es necesario realizar iteraciones, ya que con los flip-flops se realizan los cambios necesarios.
+Finalmente al finalizar el loop se imprime el valor, el cual también queda en $s_0$ y se guarda en la salida definida al principio.
 
-\newpage
+Cabe destacar que como el MIPS trabaja en 32 bits y para enteros, utiliza el primer bit para el signo, el máximo término que puede calcular es cuando $n=46$, ya que es el último que cabe en $2^{31}-1$.
+
+\section{Factorial}
+
+
 \section{Extra}
-Para realizar esto hacemos un análisis de la tabla de verdad del flip flop jk conocida, que se incluye a continuación:
-\begin{table}[h]
-\centering
-\caption{Tabla de Verdad flip-flop JK}
-\vspace{0.2cm}
-\label{tab-jk}
-\begin{tabular}{|c|c|c|c|}
-\hline
-J & K & Estado & Estado Siguiente \\ \hline
-0 & 0 & 0      & 0                \\ \hline
-0 & 0 & 1      & 1                \\ \hline
-0 & 1 & X      & 0                \\ \hline
-1 & 0 & X      & 1                \\ \hline
-1 & 1 & 0      & 1                \\ \hline
-1 & 1 & 1      & 0                \\ \hline
-\end{tabular}
-\end{table}
-\vspace{0.2cm}
-Para reemplazar el flip-flop d buscamos los casos en que el estado se mantenga constante, por lo que inmediatamente cuando j y k son uno no nos sirve, luego vemos que si j y k son ambos cero, la salida depende del estado actual, el que no hay manera de saber exactamente el valor que toma en que momento como para poder invertirlo y no afectar la entrada jk en la siguiente iteración, por los que solo nos queda el caso en que ambos son distintos, donde nos damos cuenta que el estado siguiente es equivalente al de j, por lo que corresponde a la entrada y salida del flip flop d, entonces finalmente se podría reemplazar haciendo uso de un circuito de la forma:
-\begin{center}
-\includegraphics[width=2cm]{jk.png}
-\end{center}
-
-Es por esto que el circuito-jk que se hizo para reemplazar el anterior es simplemente agregando este tipo de puertas en el lugar de flip flop d.
 
 
 \end{document}
