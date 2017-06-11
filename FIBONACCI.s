@@ -14,6 +14,7 @@ SALTO: .asciiz "\n"
 main:
 	lw $a0, ENESIMO				# Guardar enesimo para comparar
 	jal FIBONACCI 				# LLamar funcion
+
 	# Imprimir valor
 	add $t0, $v0, $zero			# Auxiliar
 	la $a0, STR					# Imprimir string
@@ -23,10 +24,10 @@ main:
 	sw $a0, RESULTADO			# Guardar resultado
 	li $v0, 1
 	syscall
-	la $a0, SALTO
+	la $a0, SALTO				# Imprimir salto
 	li $v0, 4
 	syscall
-	li $v0, 10
+	li $v0, 10					# Salir
 	syscall
 
 # Funcion principal
@@ -54,5 +55,5 @@ LOOP:
 	bne $t0, $a0, LOOP			# Si no ha terminado de iterar
 	add $v0, $s1, $zero			# Si termino: guardar actual
 
-EXIT:
+EXIT:							# Retornar
 	jr $ra
