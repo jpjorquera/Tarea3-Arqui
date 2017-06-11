@@ -14,6 +14,16 @@ main:
 	lw $a0, reg1			# Cargar inputs
 	lw $a1, reg2
 	lw $a2, cantidad
+	jal rotor				# Llamar funcion
+
+	# Guardar en salida
+	sw $v0, out1			# Guardar ambos resultados
+	sw $v1, out2
+	li $v0, 10				# Salir
+	syscall
+
+# Funcion principal
+rotor:
 	addi $s0, $zero, 1		# Iterador
 	addi $s1, $zero, 0x2	# Numero a multiplicar/dividir
 	addi $s2, $zero, 0x2
@@ -36,17 +46,16 @@ extra:
 	add $t4, $zero, $zero	# Constante para ajustar tamaño
 
 	mult $t3, $s1			# Amplificar cuociente/restos segun
-	mflo $a0				# corresponda y sumar la contraparte
-	add $a0, $a0, $t4		# Pimer resultado
-	add $a0, $a0, $t1
+	mflo $s2				# corresponda y sumar la contraparte
+	add $s2, $s2, $t4		# Pimer resultado
+	add $s2, $s2, $t1
 
 	mult $t2, $s1			# Segundo resultado
-	mflo $a1
-	add $a1, $a1, $t4
-	add $a1, $a1, $t0
+	mflo $s3
+	add $s3, $s3, $t4
+	add $s3, $s3, $t0
 
-end:
-	sw $a0, out1			# Guardar ambos resultados
-	sw $a1, out2
-	li $v0, 10				# Salir
-	syscall
+end:						# Retorno
+	add $v0, $s2, $zero
+	add $v1, $s3, $zero
+	jr $ra
