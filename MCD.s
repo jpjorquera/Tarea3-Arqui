@@ -16,7 +16,7 @@ main:
 	lw $a0, num1			# Guardar valores
 	lw $a1, num2
 	jal mcd
-	
+
 	# Imprimir valor
 	add $t0, $v0, $zero			# Aux
 	la $a0, str					# Imprimir string
@@ -32,8 +32,7 @@ main:
 	li $v0, 10					# Salir
 	syscall
 
-
-
+# Funcion principal
 mcd:
 	add $s0, $a0, $zero			# Guardar valores
 	add $s1, $a1, $zero
