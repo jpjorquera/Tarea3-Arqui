@@ -6,7 +6,7 @@ ENESIMO: .word 4
 RESULTADO: .word 0
 
 # PRINTS
-STR: .asciiz "El término enésimo de la sucesión de Fibonacci es: "
+STR: .asciiz "La suma de los enésimos terminos de la sucesión de Lucas es: "
 SALTO: .asciiz "\n"
 
 .text
