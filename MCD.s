@@ -1,21 +1,30 @@
 .data
-# INPUTS de 32 bits
-num1: .word 2366
-num2: .word 273
-
 # OUTPUT
 resultado: .word 0
 
 # PRINTS
-str: .asciiz "El MCD de ambos numeros es: "
+str_entrada1: .asciiz "Ingrese primer número para calcular MCD: "
+str_entrada2: .asciiz "\nIngrese segundo número para calcular MCD: "
+str: .asciiz "\nEl MCD de ambos numeros es: "
 salto: .asciiz "\n"
 
 .text
 # MAIN
 main:
-	lw $a0, num1			# Guardar valores
-	lw $a1, num2
-	jal mcd
+	la $a0, str_entrada1		# Imprimir str primer numero
+	li $v0, 4
+	syscall
+	li $v0, 5					# Guardar valor
+	syscall						# en temporal
+	add $t0, $v0, $zero
+	la $a0, str_entrada2		# Imprimir str segundo numero
+	li $v0, 4
+	syscall
+	li $v0, 5					# Guardar valor
+	syscall
+	add $a1, $v0, $zero			# Guardar ambos en entradas de funcion
+	add $a0, $t0, $zero
+	jal mcd 					# Llamar funcion
 
 	# Imprimir valor
 	add $t0, $v0, $zero			# Aux

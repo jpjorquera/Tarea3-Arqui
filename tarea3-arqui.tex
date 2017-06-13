@@ -65,13 +65,13 @@ Cristian Navarrete 201573549-2\\
 \setcounter{secnumdepth}{0}
 \maketitle
 \section{MCD}
-En primer lugar se dejó al principio en .data espacio para modificar inputs para probar máximos común divisores. El problema en sí se resolvió usando el \href{https://es.wikipedia.org/wiki/Algoritmo_de_Euclides#Algoritmo_de_Euclides_tradicional}{Algoritmo de Euclides}, para ello en primer lugar se identificó el menor de ambos números (almacenados en $s_0$ y $s_1$), intercambiándolos de ser necesario, de modo que el menor de ellos quede en $s_0$. 
+En primer lugar se imprime para pedir los valores que se desean calcular. El problema en sí se resolvió usando el \href{https://es.wikipedia.org/wiki/Algoritmo_de_Euclides#Algoritmo_de_Euclides_tradicional}{Algoritmo de Euclides}, ya habiendo guardado los valores en $a_0$ y $a_1$ se llama a MCD como función, pasándolos a los registros $s_0$ y $s_1$, trabajando sobre ellos e intercambiándolos de ser necesario, de modo que el menor de ellos quede en $s_0$. 
 
 Luego se creó un loop $mcd$ que va buscando el resto de la división de ambos para aplicar el Algoritmo, en caso de ser $0$ el resto significa que terminó el proceso; de no ser así, se vuelve a iterar usando como nuevos valores el menor de los antes divididos y el resto calculado.
 
 No es necesario hacer caso base, ya que en caso de no encontrar, simplemente el resto llegará a $1$, el cual debe entregar como resto $0$.
 
-Al ser $0$ el resto, el $beq$ dentro del loop lo dirige hacia el final, donde para facilitar la visualización se imprime el valor encontrado (que también queda en $s_0$) y se almacena en la salida creada al principio. 
+Al ser $0$ el resto, el $beq$ dentro del loop lo dirige hacia el final, donde se imprime el valor encontrado y se almacena en la salida creada al principio. 
 
 \section{Lucas}
 Para comenzar se creó el label enésimo para recibir el término de la serie que se quiere calcular, el cual almacenamos en $a_0$. 
@@ -89,7 +89,7 @@ Finalmente al finalizar el loop se imprime el valor y se guarda en la salida def
 \section{Fibonacci}
 Para comenzar se pide el input por consola para guardar el valor en $a_0$ y se llama a Fibonacci como función.
 
-Para continuar, definimos los dos primeros términos en $s_0$ y $s_1$, respectivamente y se realizan saltos para entregar el resultado en caso de que esos sean los términos que se busquen.
+Para continuar, definimos los dos primeros términos en $s_0$ y $s_1$, respectivamente y se realizan saltos ($j$) para entregar el resultado en caso de que esos sean los términos que se busquen.
 
 Luego se utilizó $t_0$ como un contador, el cual usaremos para verificar si se llegó al término enésimo y $t_1$ como auxiliar para ir calculando la suma de los términos actuales, para poder así actualizar $s_0$ y $s_1$ a los siguientes elementos de la serie.
 
