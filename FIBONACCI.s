@@ -16,7 +16,7 @@ main:
 	li $v0, 5					# Guardar valor
 	syscall
 	add $a0, $v0, $zero			# Pasar a input de funcion
-	jal FIBONACCI 				# LLamar funcion
+	jal FIBONACCI 				# Llamar funcion
 
 	# Imprimir valor
 	add $t0, $v0, $zero			# Auxiliar
