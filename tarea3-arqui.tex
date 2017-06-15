@@ -74,7 +74,7 @@ No es necesario hacer caso base, ya que en caso de no encontrar, simplemente el 
 Al ser $0$ el resto, el $beq$ dentro del loop lo dirige hacia el final, donde se imprime el valor encontrado y se almacena en la salida creada al principio. 
 
 \section{Lucas}
-Para comenzar se creó el label enésimo para recibir el término de la serie que se quiere calcular, el cual almacenamos en $a_0$. 
+Para comenzar se recibe el término enésimo como input, el cual almacenamos en $a_0$ para llamar a la función. 
 
 Para continuar, definimos los dos primeros términos en $s_0$ y $s_1$, respectivamente y tanmbien se define $s_3$ el cual almacena la suma de los numeros vistos. A continuación se realizan saltos para entregar el resultado en caso de que los terminos $s_0$ o $s_1$ sean los términos que se busquen.
 
@@ -98,7 +98,7 @@ Finalmente al finalizar el loop se imprime el valor y se guarda en la salida def
 Cabe destacar que como el MIPS trabaja en 32 bits y para enteros, utiliza el primer bit para el signo, el máximo término que puede calcular es cuando $n=46$, ya que es el último que cabe en $2^{31}-1$.
 
 \section{Factorial}
-Para comenzar se creó el label enésimo para recibir el término de la serie que se quiere calcular, el cual almacenamos en $a_0$. 
+Para comenzar se recibe como input el número al que se desea calcular su factorial, el cual almacenamos en $a_0$ para luego llamar a la función. 
 
 Para continuar, definimos el primer termino  $s_0$ se realizan saltos para entregar el resultado en caso de que los terminos que se busquen sean 0 o 1.
 
