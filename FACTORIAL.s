@@ -1,19 +1,21 @@
-
 .data
-# INPUT
-ENESIMO: .word 9
-
 # OUTPUT
 RESULTADO: .word 0
 
 # PRINTS
+STR_ENTRADA: .asciiz "Ingrese el enésimo que desea calcular: "
 STR: .asciiz "El factorial del n-ésimo término es : "
 SALTO: .asciiz "\n"
 
 .text
 # MAIN
 main:
-	lw $a0, ENESIMO				# Guardar enesimo para comparar
+	la $a0, STR_ENTRADA			# Imprimir entrada
+	li $v0, 4
+	syscall
+	li $v0, 5					# Guardar valor
+	syscall
+	add $a0, $v0, $zero			# Pasar a input de funcion
 	jal FACTORIAL 				# LLamar funcion
 
 	# Imprimir valor
